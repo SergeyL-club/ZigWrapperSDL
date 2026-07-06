@@ -22,20 +22,20 @@ pub fn build(b: *std.Build) !void {
     };
 
     const sdl_h_c = b.addTranslateC(.{
-        .root_source_file = sdl_windows_binary.path("include/SDL.h"),
+        .root_source_file = sdl_windows_binary.path("include/SDL3/SDL.h"),
         .target = target,
         .optimize = optimize,
         .link_libc = true,
     });
-    sdl_h_c.addIncludePath(sdl_windows_binary.path("include"));
+    sdl_h_c.addIncludePath(sdl_windows_binary.path("include/SDL3"));
 
     const sdl_vulkan = b.addTranslateC(.{
-        .root_source_file = sdl_windows_binary.path("include/SDL_vulkan.h"),
+        .root_source_file = sdl_windows_binary.path("include/SDL3/SDL_vulkan.h"),
         .target = target,
         .optimize = optimize,
         .link_libc = true,
     });
-    sdl_vulkan.addIncludePath(sdl_windows_binary.path("include"));
+    sdl_vulkan.addIncludePath(sdl_windows_binary.path("include/SDL3"));
     sdl_vulkan.addIncludePath(.{ .cwd_relative = vk_path });
 
     const mod = b.addModule("WrapperSDL", .{
