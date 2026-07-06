@@ -7,7 +7,7 @@ pub fn build(b: *std.Build) !void {
 
     const vk_sdk_path = b.graph.environ_map.get("VULKAN_SDK") orelse @panic("VULKAN_SDK missing!");
     const vk_path = b.fmt("{s}/Include", .{vk_sdk_path});
-    std.debug.print("Vulkan SDK path: {s}", .{vk_path});
+    std.debug.print("Vulkan SDK path: {s}\n", .{vk_path});
 
     const sdl_windows_binary = b.dependency("sdl_windows_binary", .{});
 
