@@ -51,6 +51,20 @@ pub fn build(b: *std.Build) !void {
 
     mod.addLibraryPath(sdl_path_artifacts);
     mod.linkSystemLibrary("SDL3", .{});
+}
+
+pub fn addInstallFiles(target: *std.Build.ResolvedTarget, b: *std.Build) void {
+    const sdl_windows_binary = b.dependency("sdl_windows_binary", .{});
+
+    const sdl_path_artifacts = switch (target.result.os.tag) {
+        .windows => switch (target.result.cpu.arch) {
+            .x86 => sdl_windows_binary.path("lib/x86"),
+            .x86_64 => sdl_windows_binary.path("lib/x64"),
+            .aarch64 => sdl_windows_binary.path("lib/arm64"),
+            else => @panic("[WrapperSDL] Not support target arch"),
+        },
+        else => @panic("[WrapperSDL] Not support target os"),
+    };
 
     const affix = switch (target.result.os.tag) {
         .windows => "dll",
