@@ -5,6 +5,8 @@ pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const vk_path = b.graph.environ_map.get("VULKAN_SDK") orelse @panic("VULKAN_SDK missing!");
+
     const sdl_windows_binary = b.dependency("sdl_windows_binary", .{});
 
     const sdl_path_artifacts = switch (target.result.os.tag) {
@@ -32,6 +34,7 @@ pub fn build(b: *std.Build) !void {
         .link_libc = true,
     });
     sdl_vulkan.addIncludePath(sdl_windows_binary.path("include"));
+    sdl_vulkan.addIncludePath(.{ .cwd_relative = vk_path });
 
     const mod = b.addModule("WrapperSDL", .{
         .root_source_file = b.path("src/root.zig"),
