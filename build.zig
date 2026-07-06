@@ -53,7 +53,8 @@ pub fn build(b: *std.Build) !void {
     mod.linkSystemLibrary("SDL3", .{});
 }
 
-pub fn addInstallFiles(target: *const std.Build.ResolvedTarget, b: *std.Build, link: *std.Build) void {
+pub fn addRequiredInstallStep(b: *std.Build, link: *std.Build) void {
+    const target = b.standardTargetOptions(.{});
     const sdl_windows_binary = link.dependency("sdl_windows_binary", .{});
 
     const sdl_path_artifacts = switch (target.result.os.tag) {
