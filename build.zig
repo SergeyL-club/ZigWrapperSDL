@@ -12,7 +12,7 @@ pub fn build(b: *std.Build) !void {
     });
 
     const sdl_window = b.dependency("binary_sdl_window", .{});
-    const sdl_path_bin = switch (builtin.target.os.tag) {
+    const sdl_path_artifacts = switch (builtin.target.os.tag) {
         .windows => switch (builtin.target.cpu.arch) {
             .x86 => sdl_window.path("lib/x86"),
             .x86_64 => sdl_window.path("lib/x64"),
@@ -31,8 +31,10 @@ pub fn build(b: *std.Build) !void {
     errdefer @panic("Error alloc string");
     defer b.allocator.free(install_filename);
 
-    const install_file = b.addInstallFileWithDir(sdl_path_bin, .bin, install_filename);
+    const install_file = b.addInstallFileWithDir(sdl_path_artifacts, .bin, install_filename);
     b.getInstallStep().dependOn(&install_file.step);
 
     mod.addIncludePath(sdl_window.path("include"));
+    mod.addLibraryPath(sdl_path_artifacts);
+    mod.linkSystemLibrary("SDL3", .{});
 }
