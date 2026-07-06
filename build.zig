@@ -52,7 +52,7 @@ pub fn build(b: *std.Build) !void {
     mod.addLibraryPath(sdl_path_artifacts);
     mod.linkSystemLibrary("SDL3", .{});
 
-    const affix = switch (builtin.target.os.tag) {
+    const affix = switch (target.result.os.tag) {
         .windows => "dll",
         else => @panic("[WrapperSDL] Not support target os"),
     };
