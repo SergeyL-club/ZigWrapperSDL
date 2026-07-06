@@ -59,6 +59,6 @@ pub fn build(b: *std.Build) !void {
 
     const install_filename = b.fmt("SDL3.{s}", .{affix});
 
-    const install_file = b.addInstallFileWithDir(sdl_path_artifacts.path(b, install_filename), .bin, install_filename);
+    const install_file = b.addInstallBinFile(sdl_path_artifacts.path(b, install_filename), install_filename);
     b.getInstallStep().dependOn(&install_file.step);
 }
