@@ -1,10 +1,6 @@
-pub const sdl_h = @cImport({
-    @cInclude("SDL3/SDL.h");
-});
-pub const sdl_vulkan = @cImport({
-    @cInclude("SDL3/SDL_vulkan.h");
-});
+pub const SDL_H = @import("SDL_H");
+pub const SDL_Vulkan = @import("SDL_Vulkan");
 
-pub fn Vulkan_CreateSurface(window: ?*sdl_h.SDL_Window, instance: sdl_vulkan.VkInstance, allocator: ?*const sdl_vulkan.VkAllocationCallbacks, surface: *sdl_vulkan.VkSurfaceKHR) bool {
-    return sdl_vulkan.SDL_Vulkan_CreateSurface(window, instance, allocator, @ptrCast(surface));
+pub fn Vulkan_CreateSurface(window: ?*SDL_H.SDL_Window, instance: SDL_Vulkan.VkInstance, allocator: ?*const SDL_Vulkan.VkAllocationCallbacks, surface: *SDL_Vulkan.VkSurfaceKHR) bool {
+    return SDL_Vulkan.SDL_Vulkan_CreateSurface(window, instance, allocator, @ptrCast(surface));
 }

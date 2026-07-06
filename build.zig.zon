@@ -32,7 +32,7 @@
     // Once all dependencies are fetched, `zig build` no longer requires
     // internet connectivity.
     .dependencies = .{
-        .binary_sdl_window = .{
+        .sdl_windows_binary = .{
             .url = "https://github.com/libsdl-org/SDL/releases/download/release-3.4.12/SDL3-devel-3.4.12-VC.zip",
             .hash = "N-V-__8AAE4JlAMyAncBlb_JYlu-9ZZHJlu9H-XNIGZspCR-",
         },
